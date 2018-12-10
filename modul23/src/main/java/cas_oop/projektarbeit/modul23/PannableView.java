@@ -51,7 +51,7 @@ public class PannableView extends Application {
 
 
 		// show the scene.
-		Scene scene = new Scene(scroll);
+		Scene scene = new Scene(scroll, 1100, 900);
 		stage.setScene(scene);
 		stage.show();
 
