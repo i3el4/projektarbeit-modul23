@@ -1,4 +1,4 @@
-package cas_oop.projektarbeit.modul23;
+package middleearth.map;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,10 +35,7 @@ public class PannableView extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		stage.setTitle("Karte von Mittelerde");
 		
-		ListView<String> log = createLog(events);
-
 		// construct the scene contents over a stacked background.
 		StackPane layout = new StackPane();
 		layout.getChildren().setAll(
@@ -49,10 +46,14 @@ public class PannableView extends Application {
 		// wrap the scene contents in a pannable scroll pane.
 		ScrollPane scroll = createScrollPane(layout);
 
+		ListView<String> log = createLog(events);
 
+		stage.setTitle("Karte von Mittelerde");
+		
 		// show the scene.
 		Scene scene = new Scene(scroll, 1100, 900);
 		stage.setScene(scene);
+		stage.getIcons().add(new Image("file:resources/images/TolkienIcon.jpg"));
 		stage.show();
 
 		// bind the preferred size of the scroll area to the size of the scene.

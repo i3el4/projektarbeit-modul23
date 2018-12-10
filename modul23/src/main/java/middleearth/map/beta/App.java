@@ -1,4 +1,4 @@
-package cas_oop.projektarbeit.modul23;
+package middleearth.map.beta;
 
 import java.io.FileNotFoundException;
 
