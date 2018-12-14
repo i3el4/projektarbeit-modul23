@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="236.0" prefWidth="455.0" stylesheets="@javaMetro.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="middleearth.map.view.MapEntryEditDialogController">
+   <styleClass>
+      <String fx:value="background" />
+      <String fx:value="button" />
+      <String fx:value="text-field" />
+   </styleClass>
+   <children>
+      <TextField fx:id="vorschlagField" layoutX="48.0" layoutY="22.0" prefHeight="159.0" prefWidth="355.0" styleClass="text-field" stylesheets="@DarkTheme.css" />
+      <ButtonBar layoutX="50.0" layoutY="196.0" prefHeight="48.0" prefWidth="242.0">
+        <buttons>
+            	<Button fx:id="speichernButton" defaultButton="true" mnemonicParsing="false" onAction="#handleSave" prefHeight="30.0" text="Speichern" />
+          	<Button fx:id="abbrechenButton" cancelButton="true" minWidth="62.0" mnemonicParsing="false" onAction="#handleCancle" prefHeight="29.0" prefWidth="157.0" text="Abbrechen" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

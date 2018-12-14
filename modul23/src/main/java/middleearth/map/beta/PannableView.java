@@ -1,4 +1,4 @@
-package middleearth.map;
+package middleearth.map.beta;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,12 +24,12 @@ public class PannableView extends Application {
 	private int gestureCount;
 	private ObservableList<String> events = FXCollections.observableArrayList();
 
+	
 	private ImageView backgroundImage = new ImageView();
 
 	@Override public void init() {
 
 		backgroundImage.setImage(new Image("file:resources/images/ihypkemxzapuu.jpg"));
-
 
 	}
 
@@ -37,14 +37,14 @@ public class PannableView extends Application {
 	public void start(Stage stage) {
 		
 		// construct the scene contents over a stacked background.
-		StackPane layout = new StackPane();
-		layout.getChildren().setAll(
+		StackPane rootlayout = new StackPane();
+		rootlayout.getChildren().setAll(
 				backgroundImage,
 				createTestButton()
 				);
 
 		// wrap the scene contents in a pannable scroll pane.
-		ScrollPane scroll = createScrollPane(layout);
+		ScrollPane scroll = createScrollPane(rootlayout);
 
 		ListView<String> log = createLog(events);
 
