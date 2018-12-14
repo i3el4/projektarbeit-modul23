@@ -127,10 +127,6 @@ public class MainApp extends Application {
 			mapImage.setImage(new Image("file:resources/images/ihypkemxzapuu.jpg"));
 
 			stack.getChildren().setAll(mapImage);
-			
-			// bind the preferred size of the scroll area to the size of the scene.
-			mapImage.fitWidthProperty().bind(scroll.widthProperty());
-			mapImage.fitHeightProperty().bind(scroll.widthProperty());
 
 			// center the scroll contents.
 			scroll.setHvalue(scroll.getHmin() + (scroll.getHmax() - scroll.getHmin()) / 2);
