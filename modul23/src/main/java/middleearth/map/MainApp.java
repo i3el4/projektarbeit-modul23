@@ -118,8 +118,7 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/MapOverview.fxml"));
 			AnchorPane mapOverview = (AnchorPane) loader.load();
-			System.out.println("hallo");
-
+			
 			Map<String, Object> fxmlNamespace = loader.getNamespace();
 			StackPane stack = (StackPane) fxmlNamespace.get("imageStack");
 			ScrollPane scroll = (ScrollPane) fxmlNamespace.get("imageScroller");
