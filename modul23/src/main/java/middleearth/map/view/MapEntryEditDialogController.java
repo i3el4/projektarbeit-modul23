@@ -21,12 +21,12 @@ public class MapEntryEditDialogController {
 	private TextField vorschlagField;
 
 	@FXML 
-	private Button abbrechenButton;
+	private Button cancleButton;
 	@FXML 
-	private Button speichernButton;
+	private Button saveButton;
 
 	private Stage dialogStage;
-	private middleearth.map.model.MapEntry entscheidung;
+	private middleearth.map.model.MapEntry mapEntry;
 	//private boolean speichernGeklickt = false;
 
 	/**
@@ -51,12 +51,12 @@ public class MapEntryEditDialogController {
 	/**
 	 * Sets the suggestion to be edited in the dialog.
 	 * 
-	 * @param entscheidung
+	 * @param mapEntry
 	 */
-	public void setSuggestion(middleearth.map.model.MapEntry entscheidung) {
-		this.entscheidung = entscheidung;
+	public void setMapEntry(middleearth.map.model.MapEntry mapEntry) {
+		this.mapEntry = mapEntry;
 
-		vorschlagField.setText(entscheidung.getEntscheidung());
+		vorschlagField.setText(mapEntry.getMapEntry());
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class MapEntryEditDialogController {
 		String errorMessage = "";
 
 		if (vorschlagField.getText() == null || vorschlagField.getText().length() == 0) {
-			errorMessage += "Bitte geben sie einen Vorschlag ein bevor sie auf Speichern klicken.\n"; 
+			errorMessage += "Bitte geben Sie etwas ein bevor sie auf Speichern klicken.\n"; 
 		}
 
 		if (errorMessage.length() == 0) {
@@ -79,7 +79,7 @@ public class MapEntryEditDialogController {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(dialogStage);
 			alert.setTitle("Leeres Feld");
-			alert.setHeaderText("Es darf kein leerer Vorschlag gespeicher werden.");
+			alert.setHeaderText("Es darf kein Eintrag ohne Inhalt gespeichert werden.");
 			alert.setContentText(errorMessage);
 
 			alert.showAndWait();
@@ -93,7 +93,7 @@ public class MapEntryEditDialogController {
 	private void handleSave() {
 
 		if (isInputValid()) {
-			entscheidung.setEntscheidung(vorschlagField.getText());
+			mapEntry.setMapEntry(vorschlagField.getText());
 
 			dialogStage.close();
 		}
@@ -109,7 +109,7 @@ public class MapEntryEditDialogController {
 	private void handleEnter(KeyEvent event) {
 
 		if (event.getCode() == KeyCode.ENTER && isInputValid()) {
-			entscheidung.setEntscheidung(vorschlagField.getText());
+			mapEntry.setMapEntry(vorschlagField.getText());
 			dialogStage.close();
 		}
 	}

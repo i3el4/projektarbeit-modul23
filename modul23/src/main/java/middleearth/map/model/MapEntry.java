@@ -13,18 +13,18 @@ import javafx.beans.property.StringProperty;
  */
 public class MapEntry {
 
-    private final StringProperty entscheidung;
-    private final IntegerProperty nummer;
+    private final StringProperty mapEntry;
+    private final IntegerProperty number;
 
     /**
      * Constructor with some initial data.
      * 
-     * @param nummer
-     * @param entscheidung
+     * @param number
+     * @param mapEntry
      */
-    public MapEntry(int nummer, String entscheidung) {
-        this.nummer = new SimpleIntegerProperty(nummer);
-        this.entscheidung = new SimpleStringProperty(entscheidung);
+    public MapEntry(int number, String mapEntry) {
+        this.number = new SimpleIntegerProperty(number);
+        this.mapEntry = new SimpleStringProperty(mapEntry);
     }
     
     /**
@@ -35,28 +35,28 @@ public class MapEntry {
         this(0, null);
     }
     
-    public String getEntscheidung() {
-        return entscheidung.get();
+    public String getMapEntry() {
+        return mapEntry.get();
     }
 
-    public void setEntscheidung(String entscheidung) {
-        this.entscheidung.set(entscheidung);
+    public void setMapEntry(String mapEntry) {
+        this.mapEntry.set(mapEntry);
     }
     
-    public StringProperty entscheidungProperty() {
-        return entscheidung;
+    public StringProperty mapEntryProperty() {
+        return mapEntry;
     }
     
 
     public int getNumber() {
-        return nummer.get();
+        return number.get();
     }
 
     public void setNumber(int number) {
-        this.nummer.set(number);
+        this.number.set(number);
     }
     
     public IntegerProperty nummerProperty() {
-        return nummer;
+        return number;
     }
 }

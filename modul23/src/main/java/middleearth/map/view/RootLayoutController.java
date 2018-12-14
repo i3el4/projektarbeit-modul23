@@ -32,8 +32,8 @@ public class RootLayoutController {
      */
     @FXML
     private void handleNew() {
-        mainApp.getSuggestionData().clear();
-        mainApp.setSuggestionFilePath(null);
+        mainApp.getMapData().clear();
+        mainApp.setMapDataFilePath(null);
     }
 
     /**
@@ -52,7 +52,7 @@ public class RootLayoutController {
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
-            mainApp.loadSuggestionDataFromFile(file);
+            mainApp.loadMapDataFromFile(file);
         }
     }
 
@@ -62,9 +62,9 @@ public class RootLayoutController {
      */
     @FXML
     private void handleSave() {
-        File vorschlagFile = mainApp.getSuggestionFilePath();
+        File vorschlagFile = mainApp.getMapDataFilePath();
         if (vorschlagFile != null) {
-            mainApp.saveSuggestionDataToFile(vorschlagFile);
+            mainApp.saveMapDataToFile(vorschlagFile);
         } else {
             handleSaveAs();
         }
@@ -93,7 +93,7 @@ public class RootLayoutController {
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
             }
-            mainApp.saveSuggestionDataToFile(file);
+            mainApp.saveMapDataToFile(file);
         }
     }
 
@@ -103,9 +103,9 @@ public class RootLayoutController {
     @FXML
     private void handleAbout() {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("EntscheidungsknopfApp");
+        alert.setTitle("Middle Earth Map");
         alert.setHeaderText("About");
-        alert.setContentText("Author: Bela Ackermann, with the help of http://code.makery.ch");
+        alert.setContentText("Author: Bela Ackermann, Sonja Läderach");
 
         alert.showAndWait();
     }

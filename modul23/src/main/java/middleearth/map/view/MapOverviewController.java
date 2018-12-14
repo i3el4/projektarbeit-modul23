@@ -1,34 +1,16 @@
 package middleearth.map.view;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.Lighting;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ZoomEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import middleearth.map.MainApp;
-import middleearth.map.model.MapEntry;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 
 
 
@@ -57,7 +39,6 @@ public class MapOverviewController {
 	// Reference to the main application.
 	private MainApp mainApp;
 
-	private ImageView mapImage = new ImageView();
 	private int gestureCount;
 	private ObservableList<String> events = FXCollections.observableArrayList();
 
@@ -179,7 +160,7 @@ public class MapOverviewController {
 	 * @param MapEntry
 	 */
 
-	public void handleHinzufuegenKnopf() {
+	public void handleAddButton() {
 
 		//		// Wurde ein neuer Vorschlag im Textfeld für neue Vorschläge eingegeben?
 		//		if(!textfeldLeer()) {
@@ -210,7 +191,7 @@ public class MapOverviewController {
 	 * 
 	 * @return  true wenn Textfeld leer ist, false wenn es gefüllt ist
 	 */
-	public boolean textfeldLeer() {
+	public boolean textfieldEmpty() {
 
 		//		// Wenn Textfeld leer ist:
 		//		if (vorschlagField.getText() == null || vorschlagField.getText().length() == 0) {
@@ -235,16 +216,16 @@ public class MapOverviewController {
 	 * @param neuerVorschlag  neuer Vorschlag aus dem Textfeld
 	 * @return unikat true wenn kein Duplikat vorhanden, false wenn Duplikat vorhanden
 	 */
-	public boolean istNeu(String neuerVorschlag) {
+	public boolean isNew(String neuerVorschlag) {
 
 		boolean	unikat = true;
 		int i = 0;
 		String alterVorschlag;
 
 		// Iteriere über vorhandene Vorschläge in der Liste
-		while( 	unikat && (i < mainApp.getSuggestionData().size())) {
+		while( 	unikat && (i < mainApp.getMapData().size())) {
 
-			alterVorschlag = mainApp.getSuggestionData().get(i).getEntscheidung();
+			alterVorschlag = mainApp.getMapData().get(i).getMapEntry();
 			i = i + 1;
 			unikat = !alterVorschlag.toLowerCase().equals(neuerVorschlag.toLowerCase());
 		}
@@ -255,7 +236,7 @@ public class MapOverviewController {
 	public void handleEnterPressed(KeyEvent event) {
 
 		if (event.getCode() == KeyCode.ENTER) {
-			handleHinzufuegenKnopf();
+			handleAddButton();
 		}
 	}
 
@@ -264,7 +245,7 @@ public class MapOverviewController {
 	 * details for the selected
 	 */
 	@FXML
-	private void handleBearbeiteVorschlag() {
+	private void handleEditButton() {
 		//		Suggestion ausgewaehlterVorschlag = vorschlagTable.getSelectionModel().getSelectedItem();
 		//		if (ausgewaehlterVorschlag != null) {
 		//			boolean bearbeitenGeklickt = mainApp.showSuggestionEditDialog(ausgewaehlterVorschlag);
@@ -285,7 +266,7 @@ public class MapOverviewController {
 	 * Called when the user clicks on the delete button.
 	 */
 	@FXML
-	private void handleDeleteVorschlag() {
+	private void handleDeleteButton() {
 		//
 		//		int selectedIndex = vorschlagTable.getSelectionModel().getSelectedIndex();
 		//

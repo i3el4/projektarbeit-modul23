@@ -12,18 +12,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * @author Bela Ackermann, with instructions from code.makery.ch
  */
-@XmlRootElement(name = "vorschlaege")
+@XmlRootElement(name = "mapEntries")
 public class MapEntriesWrapper implements Serializable{
 
 	private static final long serialVersionUID = 9086555353107825605L;
-	private List<MapEntry> vorschlaege;
+	private List<MapEntry> mapEntries;
 
-    @XmlElement(name = "vorschlag")
-    public List<MapEntry> getVorschlaege() {
-        return vorschlaege;
+    @XmlElement(name = "mapEntry")
+    public List<MapEntry> getMapEntries() {
+        return mapEntries;
     }
 
-    public void setVorschlaege(List<MapEntry> vorschlaege) {
-        this.vorschlaege = vorschlaege;
+    public void setMapEntries(List<MapEntry> newMapEntries) {
+        this.mapEntries = newMapEntries;
     }
 }

@@ -21,33 +21,33 @@ import middleearth.map.model.MapEntry;
 
 public class MapIcon {
 	
-	final Button entscheidungsKnopf = new Button();
+	final Button exampleButton = new Button();
 	@FXML
-    private TableView<MapEntry> vorschlagTable;
+    private TableView<MapEntry> mapEntryTable;
 	
 	public MapIcon() {
 		}	
 	
-	public Button getEntscheidungsKnopf() {
-		return entscheidungsKnopf;
+	public Button getExampleButton() {
+		return exampleButton;
 	}
 	
 	/**
 	 * Called when the user clicks on the delete button.
 	 */
 	@FXML
-	private void handleDeleteVorschlag() {
-	    int selectedIndex = vorschlagTable.getSelectionModel().getSelectedIndex();
-	    vorschlagTable.getItems().remove(selectedIndex);
+	private void handleDeleteEntryButton() {
+	    int selectedIndex = mapEntryTable.getSelectionModel().getSelectedIndex();
+	    mapEntryTable.getItems().remove(selectedIndex);
 	}
 	
 	/**
 	 * Called when the user clicks on the decision button.
 	 */
 	@FXML
-	public void handleAendereKnopfFarbe() {
+	public void handleChangeColourButton() {
 		
-		entscheidungsKnopf.addEventHandler(	MouseEvent.MOUSE_CLICKED, 
+		exampleButton.addEventHandler(	MouseEvent.MOUSE_CLICKED, 
 											new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {

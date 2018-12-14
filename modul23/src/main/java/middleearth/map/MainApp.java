@@ -12,24 +12,14 @@ import javax.xml.bind.Unmarshaller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Modality;
@@ -49,13 +39,8 @@ public class MainApp extends Application {
 	/**
 	 * The data as an observable list of suggestions.
 	 */
-	private ObservableList<MapEntry> suggestionData = FXCollections.observableArrayList();
+	private ObservableList<MapEntry> mapData = FXCollections.observableArrayList();
 	private MapEntriesWrapper wrapper;
-
-	private int gestureCount;
-	private ObservableList<String> events = FXCollections.observableArrayList();
-
-	private ImageView backgroundImage = new ImageView();
 
 	/**
 	 * Constructor
@@ -63,8 +48,8 @@ public class MainApp extends Application {
 	public MainApp() {
 
 		// Add some sample data
-		suggestionData.add(new MapEntry(1, "Rollenspielen"));
-		suggestionData.add(new MapEntry(2, "Schlafen"));
+		mapData.add(new MapEntry(1, "Rollenspielen"));
+		mapData.add(new MapEntry(2, "Schlafen"));
 
 	}
 
@@ -72,8 +57,8 @@ public class MainApp extends Application {
 	 * Returns the data as an observable list of suggestions. 
 	 * @return
 	 */
-	public ObservableList<MapEntry> getSuggestionData() {
-		return suggestionData;
+	public ObservableList<MapEntry> getMapData() {
+		return mapData;
 	}
 
 	@Override
@@ -87,7 +72,7 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		// show the scene
-		showEntscheidungOverview();
+		showMapOverview();
 	}
 
 	/**
@@ -117,9 +102,9 @@ public class MainApp extends Application {
 		}
 
 		// Try to load last opened suggestion file.
-		File file = getSuggestionFilePath();
+		File file = getMapDataFilePath();
 		if (file != null) {
-			loadSuggestionDataFromFile(file);
+			loadMapDataFromFile(file);
 		}
 	}
 
@@ -127,12 +112,12 @@ public class MainApp extends Application {
 	/**
 	 * Shows the decision button overview inside the root layout.
 	 */
-	public void showEntscheidungOverview() {
+	public void showMapOverview() {
 		try {
 			// Load suggestion overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/MapOverview.fxml"));
-			AnchorPane entscheidungOverview = (AnchorPane) loader.load();
+			AnchorPane mapOverview = (AnchorPane) loader.load();
 
 			Map<String, Object> fxmlNamespace = loader.getNamespace();
 			StackPane stack = (StackPane) fxmlNamespace.get("imageStack");
@@ -152,7 +137,7 @@ public class MainApp extends Application {
 			scroll.setVvalue(scroll.getVmin() + (scroll.getVmax() - scroll.getVmin()) / 2);
 
 			// Set Map Overview into the center of root layout.
-			rootLayout.setCenter(entscheidungOverview);
+			rootLayout.setCenter(mapOverview);
 
 			// Give the controller access to the main app.
 			MapOverviewController controller = loader.getController();
@@ -170,7 +155,7 @@ public class MainApp extends Application {
 	 * 
 	 * @param file
 	 */
-	public void loadSuggestionDataFromFile(File file) {
+	public void loadMapDataFromFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
 					.newInstance(MapEntriesWrapper.class);
@@ -180,11 +165,11 @@ public class MainApp extends Application {
 			MapEntriesWrapper wrapper = (MapEntriesWrapper) um.unmarshal(file);
 
 
-			suggestionData.clear();
-			suggestionData.addAll(wrapper.getVorschlaege());
+			mapData.clear();
+			mapData.addAll(wrapper.getMapEntries());
 
 			// Save the file path to the registry.
-			setSuggestionFilePath(file);
+			setMapDataFilePath(file);
 
 		} catch (Exception e) { // catches ANY exception
 			Alert alert = new Alert(AlertType.ERROR);
@@ -196,10 +181,10 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void wrapSuggestionData() {
+	public void wrapMapData() {
 		// Wrapping our suggestion data.
 		wrapper = new MapEntriesWrapper();
-		wrapper.setVorschlaege(suggestionData);
+		wrapper.setMapEntries(mapData);
 	}
 
 
@@ -208,7 +193,7 @@ public class MainApp extends Application {
 	 * 
 	 * @param file
 	 */
-	public void saveSuggestionDataToFile(File file) {
+	public void saveMapDataToFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
 					.newInstance(MapEntriesWrapper.class);
@@ -217,13 +202,13 @@ public class MainApp extends Application {
 
 			// Wrapping our suggestion data.
 			MapEntriesWrapper wrapper = new MapEntriesWrapper();
-			wrapper.setVorschlaege(suggestionData);
+			wrapper.setMapEntries(mapData);
 
 			// Marshalling and saving XML to the file.
 			m.marshal(wrapper, file);
 
 			// Save the file path to the registry.
-			setSuggestionFilePath(file);
+			setMapDataFilePath(file);
 
 
 
@@ -243,21 +228,21 @@ public class MainApp extends Application {
 	 * clicks OK, the changes are saved into the provided suggestion object and true
 	 * is returned.
 	 * 
-	 * @param entscheidung the suggestion object to be edited
+	 * @param mapEntry the suggestion object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
-	public boolean showSuggestionEditDialog(MapEntry entscheidung) {
+	public boolean showMapEntryEditDialog(MapEntry mapEntry) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/SuggestionEditDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/MapEntryEditDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			// Set the application icon.
-			dialogStage.getIcons().add(new Image("file:resources/images/if_Spongebob_379417.png"));
-			dialogStage.setTitle("Vorschlag bearbeiten");
+			dialogStage.getIcons().add(new Image("file:resources/images/TolkienIcon.jpg"));
+			dialogStage.setTitle("Karten Eintrag bearbeiten");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
@@ -266,7 +251,7 @@ public class MainApp extends Application {
 			// Set the suggestion into the controller.
 			MapEntryEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setSuggestion(entscheidung);
+			controller.setMapEntry(mapEntry);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -285,7 +270,7 @@ public class MainApp extends Application {
 	 * 
 	 * @return
 	 */
-	public File getSuggestionFilePath() {
+	public File getMapDataFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		String filePath = prefs.get("filePath", null);
 		System.out.println(filePath);
@@ -302,18 +287,18 @@ public class MainApp extends Application {
 	 * 
 	 * @param file the file or null to remove the path
 	 */
-	public void setSuggestionFilePath(File file) {
+	public void setMapDataFilePath(File file) {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		if (file != null) {
 			prefs.put("filePath", file.getPath());
 
 			// Update the stage title.
-			primaryStage.setTitle("EntscheidungsknopfApp - " + file.getName());
+			primaryStage.setTitle("Mittelerde Karte - " + file.getName());
 		} else {
 			prefs.remove("filePath");
 
 			// Update the stage title.
-			primaryStage.setTitle("EntscheidungsknopfApp");
+			primaryStage.setTitle("Mittelerde Karte");
 		}
 	}
 
