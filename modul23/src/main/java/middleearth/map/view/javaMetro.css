@@ -42,8 +42,17 @@
  * COMPATIBILITY
  * -------------
  */
-/*  .anchor {
+
+
+/**
+* PICTURES & ICONS
+* ----------------
+*/
+/*   .anchor {
     -fx-background-image:url("file:resources/images/ihypkemxzapuu.jpg");
+}
+.icon{
+	-fx
 } */
 /**
  * ALTERNATE LABELS

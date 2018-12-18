@@ -14,10 +14,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -118,15 +120,27 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/MapOverview.fxml"));
 			AnchorPane mapOverview = (AnchorPane) loader.load();
-			
+
 			Map<String, Object> fxmlNamespace = loader.getNamespace();
 			StackPane stack = (StackPane) fxmlNamespace.get("imageStack");
 			ScrollPane scroll = (ScrollPane) fxmlNamespace.get("imageScroller");
 
+
+			// resizes the image to have width of 100 while preserving the ratio and using
+			// higher quality filtering method; this ImageView is also cached to
+			// improve performance
 			ImageView mapImage = new ImageView();
 			mapImage.setImage(new Image("file:resources/images/ihypkemxzapuu.jpg"));
+			mapImage.setPreserveRatio(true);
+//			mapImage.setSmooth(true);
+//			mapImage.setCache(true);
+//			mapImage.setFitWidth(100);
 
 			stack.getChildren().setAll(mapImage);
+
+			// bind the preferred size of the scroll area to the size of the image.
+			mapImage.fitWidthProperty().bind(scroll.prefWidthProperty());
+			mapImage.fitHeightProperty().bind(scroll.prefHeightProperty());
 
 			// center the scroll contents.
 			scroll.setHvalue(scroll.getHmin() + (scroll.getHmax() - scroll.getHmin()) / 2);

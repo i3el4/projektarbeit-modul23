@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -19,7 +20,10 @@
                   <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" text="Personen" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
                   <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" text="Sonstiges" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="230.0" />
                   <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" text="Ereignisse" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0" />
-                  <AnchorPane layoutX="-12.0" prefHeight="698.0" prefWidth="33.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="0.0" />
+                  <AnchorPane layoutX="-12.0" prefHeight="698.0" prefWidth="33.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="0.0">
+                     <effect>
+                        <DropShadow />
+                     </effect></AnchorPane>
                   <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <ButtonBar layoutY="5.0" prefHeight="60.0" prefWidth="229.0" stylesheets="@javaMetro.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
